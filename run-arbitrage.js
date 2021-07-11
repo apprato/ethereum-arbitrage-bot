@@ -42,9 +42,14 @@ web3.eth.subscribe('newBlockHeaders')
           )
           .call()
     ]);
-    console.log('DAI -> ETH');
-    console.log('ETH -> DAI');
-    console.log(kyberResults);
+
+    // Normalise reuslts so they are more usable.
+    const kyberRates = {
+        buy: parseFloat(1 / (kyberResults[0].expectedRate / (10 ** 18))),
+        sell: parseFloat(kyberResults[1].expectedRate / (10 ** 18))
+    };
+    console.log('ETH / DAI');
+    console.log(kyberRates);
   })
   .on('error', error => {
     console.log(error);
